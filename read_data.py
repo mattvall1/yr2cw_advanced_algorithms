@@ -7,7 +7,28 @@ def get_data():
         # Read CSV file
         data = csv.reader(file)
 
-        # Put data into an appropriate data structure - USE crls_library HERE
+        # Put data into an appropriate data structure
+        count = 0
+        temp_count = 0
+        station_data = []
+        station_list = []
         for line in data:
-            print(line)
+            # Add connections with times to an array
+            # INCL TEMPORARY 5 ITEM LIMIT
+            if line[2] != '' and temp_count < 4:
+                station_data.append(line)
+                temp_count += 1
+
+            # Create a list of stations with a key to represent them
+            if line[2] == '':
+                # Format: [int: key, str: line, str: station]
+                station_list.append([int(count), line[0], line[1]])
+
+            count += 1
+
+
+
+
+
+        return [station_data, station_list]
 
