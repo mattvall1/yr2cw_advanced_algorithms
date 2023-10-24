@@ -1,6 +1,8 @@
 # Import relevant libraries
 import read_data
-from clrs_library.utility_functions.adjacency_matrix_graph import AdjacencyMatrixGraph
+from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
+from clrs_library_slim import dijkstra
+
 
 # Tell user the program has started
 print('Preparing data...')
@@ -9,11 +11,11 @@ print('Preparing data...')
 station_data = read_data.get_data()[0]
 station_list = read_data.get_data()[1]
 
-# print(station_list)
-# print(station_data)
+print(station_list)
+print(station_data)
 
 # Put station data into adjacency matrix - Adjust first parameter according to size of dataset - WE CAN DO THIS AUTOMATICALLY LATER
-station_data_graph = AdjacencyMatrixGraph(5, False, True)
+station_data_graph = AdjacencyListGraph(5, False, True)
 
 for station_details in station_data:
     # Get station keys to insert into matrix
@@ -29,12 +31,13 @@ for station_details in station_data:
 
     station_data_graph.insert_edge(station_id_u, station_id_v, int(station_details[2]))
 
+print(station_data_graph.get_edge_list())
 
 # Gather route information from the customer
 starting_station = str(input('Input a starting station: '))
 dest_station = str(input('Input a destination station: '))
 
-# Get stations from users input
+# Get stations from users input - IF TIME: Add case insensitivity here
 for station in station_list:
     # Get starting station id
     if starting_station == station[2]:
@@ -53,5 +56,9 @@ for station in station_list:
         found_match_d = False
 
 # Get total duration of journey using Dijkstra algorithm
+print(starting_station)
+print(dest_station)
+
+print(dijkstra.dijkstra(station_data_graph, 1))
 
 
