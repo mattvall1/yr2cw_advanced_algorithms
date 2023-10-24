@@ -17,7 +17,8 @@ def get_data():
             # Add connections with times to an array
             # INCL TEMPORARY 5 ITEM LIMIT
             if line[2] != '' and temp_count < 40000:
-                station_data.append(line)
+                # Format: [str: start station, str: dest. station, int: time between stations]
+                station_data.append([line[1], line[2], int(line[3])])
                 temp_count += 1
 
             # Create a list of stations with an id to represent them
