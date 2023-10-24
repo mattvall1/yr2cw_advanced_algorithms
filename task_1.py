@@ -2,11 +2,8 @@
 import read_data
 from clrs_library.utility_functions.adjacency_matrix_graph import AdjacencyMatrixGraph
 
-
-# Gather route information from the customer
-starting_station = str(input('Input a starting station: '))
-destination_station = str(input('Input a destination station: '))
-
+# Tell user the program has started
+print('Preparing data...')
 
 # Get required data
 station_data = read_data.get_data()[0]
@@ -15,19 +12,46 @@ station_list = read_data.get_data()[1]
 # print(station_list)
 # print(station_data)
 
-exit()
+# Put station data into adjacency matrix - Adjust first parameter according to size of dataset - WE CAN DO THIS AUTOMATICALLY LATER
+station_data_graph = AdjacencyMatrixGraph(5, False, True)
 
-# Put station data into adjacency matrix
-station_data_graph = AdjacencyMatrixGraph(5, True, True)
+for station_details in station_data:
+    # Get station keys to insert into matrix
+    for station in station_list:
+        if station_details[0] == station[2]:
+            station_id_u = station[0]
+        elif station_details[1] == station[2]:
+            station_id_v = station[0]
 
-for station in station_data:
-    print(station)
-    station_data_graph.insert_edge(station[1], station[2], int(station[3]))
+    # print(station_id_u)
+    # print(station_id_v)
+    # print(station_details)
+
+    station_data_graph.insert_edge(station_id_u, station_id_v, int(station_details[2]))
 
 
-# Get total duration of journey
+# Gather route information from the customer
+starting_station = str(input('Input a starting station: '))
+dest_station = str(input('Input a destination station: '))
 
+# Get stations from users input
+for station in station_list:
+    # Get starting station id
+    if starting_station == station[2]:
+        # Format: [int: id, str: station name]
+        starting_station = [station[0], station[2]]
+        found_match_s = True
+    else:
+        found_match_s = False
 
+    # Get destination station id
+    if dest_station == station[2]:
+        # Format: [int: id, str: station name]
+        dest_station = [station[0], station[2]]
+        found_match_d = True
+    else:
+        found_match_d = False
 
+# Get total duration of journey using Dijkstra algorithm
 
 

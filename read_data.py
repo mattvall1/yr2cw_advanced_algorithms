@@ -16,7 +16,7 @@ def get_data():
         for line in data:
             # Add connections with times to an array
             # INCL TEMPORARY 5 ITEM LIMIT
-            if line[2] != '' and temp_count < 40000:
+            if line[2] != '' and temp_count < 4:
                 # Format: [str: start station, str: dest. station, int: time between stations]
                 station_data.append([line[1], line[2], int(line[3])])
                 temp_count += 1
