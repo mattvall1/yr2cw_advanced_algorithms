@@ -19,7 +19,8 @@ station_list = read_data.get_data()[1]
 print(station_list)
 print(station_data)
 
-# Put station data into adjacency matrix - Adjust first parameter according to size of dataset - WE CAN DO THIS AUTOMATICALLY LATER
+# Put station data into adjacency matrix
+# TODO: Adjust first parameter according to size of dataset - WE CAN DO THIS AUTOMATICALLY LATER
 station_data_graph = AdjacencyListGraph(5, False, True)
 
 for station_details in station_data:
@@ -35,6 +36,8 @@ for station_details in station_data:
     # print(station_details)
 
     station_data_graph.insert_edge(station_id_u, station_id_v, int(station_details[2]))
+
+# exit() # Uncomment when using extras_data_visualization.py
 
 print(station_data_graph.get_edge_list())
 
