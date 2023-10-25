@@ -62,6 +62,8 @@ for station in station_list:
         found_match_d = False
 
 # TODO: Run algorithm here to find shortest path
+d, pi = dijkstra(station_data_graph, )
+
 
 print(dijkstra.dijkstra(station_data_graph, 1))
 
