@@ -20,6 +20,7 @@ print(station_list)
 print(station_data)
 
 # Put station data into adjacency matrix - Adjust first parameter according to size of dataset - WE CAN DO THIS AUTOMATICALLY LATER
+# TODO: Use len(station_list) here, after testing
 station_data_graph = AdjacencyListGraph(5, False, True)
 
 for station_details in station_data:
