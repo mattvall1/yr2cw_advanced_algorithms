@@ -43,7 +43,8 @@ print(station_data_graph.get_edge_list())
 starting_station = str(input('Input a starting station: '))
 dest_station = str(input('Input a destination station: '))
 
-# Get stations from users input - IF TIME: Add case insensitivity here
+# Get stations from users input -
+# TODO - IF TIME: Add case insensitivity here
 for station in station_list:
     # Get starting station id
     if starting_station == station[2]:
