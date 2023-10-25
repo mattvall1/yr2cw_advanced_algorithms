@@ -55,10 +55,12 @@ for station in station_list:
     else:
         found_match_d = False
 
-# Get total duration of journey using Dijkstra algorithm
-print(starting_station)
-print(dest_station)
+# TODO: Run algorithm here to find shortest path
 
 print(dijkstra.dijkstra(station_data_graph, 1))
+
+# TODO: Display routing here
+
+# TODO: Display time to get from start to dest here
 
 
