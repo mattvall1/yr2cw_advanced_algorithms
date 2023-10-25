@@ -1,3 +1,8 @@
+"""
+    Author: Matthew Vallance 001225832
+    Purpose: Task 1 - Data added to graph and shortest path algorithm
+    Date: 25/10/23
+"""
 # Import relevant libraries
 import read_data
 from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph

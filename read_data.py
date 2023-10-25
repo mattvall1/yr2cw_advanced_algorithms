@@ -1,3 +1,8 @@
+"""
+    Author: Matthew Vallance 001225832
+    Purpose: Data imports from London Underground CSV
+    Date: 16/10/23
+"""
 import csv
 
 
