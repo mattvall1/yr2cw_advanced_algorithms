@@ -67,12 +67,7 @@ for station in station_list:
         found_match_d = False
 
 # TODO: Run algorithm here to find shortest path
-print(dest_station)
-d, pi = dijkstra.dijkstra(station_data_graph, dest_station[0])
 
-
-print(d)
-print(pi)
 
 # TODO: Display routing here
 
