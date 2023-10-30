@@ -66,6 +66,7 @@ for i in range(1, len(station_edges_cleaned)):
 station_edges_set = set(tuple(x) for x in station_edges_cleaned_2)
 station_edges_cleaned_2 = [list(x) for x in station_edges_set]
 
+# TESTING CODE
 data_to_csv.write_to_csv(sorted(station_edges_cleaned_2), 'edges')
 # exit()
 
