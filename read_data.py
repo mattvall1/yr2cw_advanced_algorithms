@@ -4,6 +4,7 @@
     Date: 16/10/23
 """
 import csv
+import numpy as np
 
 
 # Get data from CSV and format into appropriate data structure
@@ -14,19 +15,24 @@ def get_data():
         data = csv.reader(file)
 
         # Put data into an appropriate data structure
-        count = 0
         station_data = []
         station_list = []
         for line in data:
             # Add connections with times to an array
             if line[2] != '':
-                # Format: [str: start station, str: dest. station, int: time between stations]
+                # Format: [str: line, str: start station, str: dest. station, int: time between stations]
                 station_data.append([line[0], line[1], line[2], int(line[3])])
 
-            # Create a list of stations with an id to represent them
+            # Create a list of stations
+            # THINK ABOUT DUPLICATED EDGWARE ROAD HERE
             if line[2] == '':
-                # Format: [int: id, str: line, str: station]
-                station_list.append([int(count), line[0].replace('\ufeff', ''), line[1]])
-                count += 1
+                station_list.append(line[1].rstrip())
 
-        return [station_data, station_list]
+    # Remove duplicate stations and add ids
+    station_list_clean = []
+    count = 0
+    for station in np.unique(station_list):
+        station_list_clean.append([int(count), station])
+        count += 1
+
+    return [station_data, station_list_clean]

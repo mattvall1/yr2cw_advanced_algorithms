@@ -12,11 +12,7 @@ from clrs_library_slim import dijkstra
 print('Preparing data...')
 
 # Get required data
-station_data = read_data.get_data()[0]
-station_list = read_data.get_data()[1]
-
-# print(station_list)
-# print(station_data)
+station_data, station_list = read_data.get_data()
 
 # Put station data into adjacency list graph - Adjust first parameter according to size of dataset
 station_data_graph = AdjacencyListGraph(len(station_list), False, True)
@@ -24,23 +20,20 @@ station_data_graph = AdjacencyListGraph(len(station_list), False, True)
 # Create list of edges to insert also create a set to store sorted tuples - for checking duplicates
 station_edges = []
 edge_set = set()
-for station_details in station_data:
+for connection in station_data:
     # Get station edges to insert into array
+    station_id_u = 0
+    station_id_v = 0
     for station in station_list:
-        if station_details[1] == station[2].rstrip() and station_details[0] == station[1].rstrip():
+        # Start
+        if connection[1] == station[1]:
             station_id_u = station[0]
-        elif station_details[2] == station[2].rstrip() and station_details[0] == station[1].rstrip():
+        # Destination
+        if connection[2] == station[1]:
             station_id_v = station[0]
 
-    # Check edge against all previous results and add to station_edges if no duplicates are found
-    edge = [station_id_u, station_id_v, int(station_details[3])]
-    edge_tuple = tuple(sorted(edge))
-    if edge_tuple not in edge_set:
-        edge_set.add(edge_tuple)
-        station_edges.append(edge)
-        # Do not allow self-directed loops, then add edge to the graph
-        if edge[0] != edge[1]:
-            station_data_graph.insert_edge(edge[0], edge[1], edge[2])
+    station_edges.append([station_id_u, station_id_v, int(connection[3])])
+    # station_data_graph.insert_edge(station_id_u, station_id_v, int(connection[3]))
 
 
 # Gather route information from the customer
