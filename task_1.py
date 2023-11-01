@@ -15,67 +15,22 @@ from testing import data_to_csv
 print('Preparing data...')
 
 # Get required data
-station_data, station_list = read_data.get_data()
+station_data, station_edges, station_list = read_data.get_data()
+
+data_to_csv.write_to_csv(station_data, 'station_data')
+data_to_csv.write_to_csv(station_edges, 'station_edges')
+data_to_csv.write_to_csv(sorted(station_list), 'station_list')
 
 # Put station data into adjacency list graph - Adjust first parameter according to size of dataset
 station_data_graph = AdjacencyListGraph(len(station_list), False, True)
 
-# Create list of edges to insert also create a set to store sorted tuples - for checking duplicates
-station_edges = []
-edge_set = set()
-for connection in station_data:
-    # Get station edges to insert into array
-    station_id_u = 0
-    station_id_v = 0
-    for station in station_list:
-        # Start
-        if connection[1] == station[1]:
-            station_id_u = station[0]
-        # Destination
-        if connection[2] == station[1]:
-            station_id_v = station[0]
-
-    # Check edge against all previous results and add to station_edges if no duplicates are found
-    station_edges.append([sorted([station_id_u, station_id_v]), int(connection[3])])
-
-# Sort all edges so we can remove duplicates and find the shortest time between the duplicates
-station_edges = sorted(station_edges)
-station_edges_cleaned = []
-for i in range(1, len(station_edges)):
-    # Get the shortest routes between each station (regardless of line)
-    if station_edges[i][0] != station_edges[i - 1][0]:
-        station_edges_cleaned.append([[station_edges[i][0][0], station_edges[i][0][1]], station_edges[i][1]])
-    else:
-        # Keep edges which have a smaller weight than the last item, or if they are equal (we remove these later)
-        if station_edges[i][1] < station_edges[i - 1][1] or station_edges[i][1] == station_edges[i - 1][1]:
-            station_edges_cleaned.append([[station_edges[i][0][0], station_edges[i][0][1]], station_edges[i][1]])
-
-# Run sorting algorithm twice to make sure we catch everything
-# TODO: Make this less crap
-station_edges_cleaned_2 = []
-for i in range(1, len(station_edges_cleaned)):
-    # Get the shortest routes between each station (regardless of line)
-    if station_edges_cleaned[i][0] != station_edges_cleaned[i - 1][0]:
-        station_edges_cleaned_2.append([station_edges_cleaned[i][0][0], station_edges_cleaned[i][0][1], station_edges_cleaned[i][1]])
-    else:
-        # Keep edges which have a smaller weight than the last item, or if they are equal (we remove these later)
-        if station_edges_cleaned[i][1] < station_edges_cleaned[i - 1][1] or station_edges_cleaned[i][1] == station_edges_cleaned[i - 1][1]:
-            station_edges_cleaned_2.append([station_edges_cleaned[i][0][0], station_edges_cleaned[i][0][1], station_edges_cleaned[i][1]])
-
-# Convert list of edges to tuples to remove duplicates, then convert back to list of lists
-station_edges_set = set(tuple(x) for x in station_edges_cleaned_2)
-station_edges_cleaned_2 = [list(x) for x in station_edges_set]
-
-# TESTING CODE
-data_to_csv.write_to_csv(sorted(station_edges_cleaned_2), 'edges')
-# exit()
+exit()
 
 # Add all station edges to graph
-for edge in station_edges_cleaned_2:
-    # Remove self loops before inserting edge
-    if edge[0] != edge[1]:
-        station_data_graph.insert_edge(edge[0], edge[1], edge[2])
+for edge in station_edges:
+    station_data_graph.insert_edge(edge[0], edge[1], edge[2])
 
+print(station_data_graph)
 
 # Gather route information from the customer
 starting_station = str(input('Input a starting station: '))
