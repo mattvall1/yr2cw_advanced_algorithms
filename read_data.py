@@ -21,18 +21,18 @@ def get_data():
             # Add connections with times to an array
             if line[2] != '':
                 # Format: [str: line, str: start station, str: dest. station, int: time between stations]
-                station_data.append([line[1].rstrip(), line[2].rstrip(), int(line[3])])
+                # TODO: Explain apostrophe removal in report
+                station_data.append([line[1].rstrip().replace('\'', ''), line[2].rstrip().replace('\'', ''), int(line[3])])
 
-            # Create a list of stations
-            # THINK ABOUT DUPLICATED EDGWARE ROAD HERE
+            # Create a list of stations with IDs
             if line[2] == '':
                 station_list.append(line[1].rstrip())
 
-    # Remove duplicate stations and add ids
+    # Remove duplicate stations and add IDs
     station_list_clean = []
     count = 0
     for station in np.unique(station_list):
-        station_list_clean.append([int(count), station.rstrip()])
+        station_list_clean.append([int(count), station.rstrip().replace('\'', '')])
         count += 1
 
     # Assign IDs to each station, to create edges to insert into the graph
@@ -58,5 +58,15 @@ def get_data():
     # Remove duplicate edges
     station_edges = [list(x) for x in set(tuple(x) for x in station_edges)]
     
+    station_edges = sorted(station_edges)
+
+    station_edges_duplicates = []
+    for i in range(0, len(station_edges)):
+        # Get a list of the duplicated edges with the higher weight
+        if station_edges[i][0] == station_edges[i - 1][0] and station_edges[i][1] == station_edges[i - 1][1]:
+            station_edges_duplicates.append(station_edges[i])
+
+    for station_edge_duplicate in station_edges_duplicates:
+        station_edges.remove(station_edge_duplicate)
 
     return [station_data, station_edges, station_list_clean]

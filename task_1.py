@@ -24,7 +24,6 @@ data_to_csv.write_to_csv(sorted(station_list), 'station_list')
 # Put station data into adjacency list graph - Adjust first parameter according to size of dataset
 station_data_graph = AdjacencyListGraph(len(station_list), False, True)
 
-exit()
 
 # Add all station edges to graph
 for edge in station_edges:
