@@ -29,27 +29,27 @@ station_data_graph = AdjacencyListGraph(len(station_list), False, True)
 for edge in station_edges:
     station_data_graph.insert_edge(edge[0], edge[1], edge[2])
 
-print(station_data_graph)
+# print(station_data_graph)
 
 # Gather route information from the customer
 starting_station = str(input('Input a starting station: '))
 dest_station = str(input('Input a destination station: '))
 
 # Get stations from users input
-# TODO - IF TIME: Add case insensitivity here
+# TODO - IF TIME: Add case insensitivity here/Checks on innacurate data entry
 for station in station_list:
     # Get starting station id
-    if starting_station == station[2]:
+    if starting_station == station[1]:
         # Format: [int: id, str: station name]
-        starting_station = [station[0], station[2]]
+        starting_station = [station[0], station[1]]
         found_match_s = True
     else:
         found_match_s = False
 
     # Get destination station id
-    if dest_station == station[2]:
+    if dest_station == station[1]:
         # Format: [int: id, str: station name]
-        dest_station = [station[0], station[2]]
+        dest_station = [station[0], station[1]]
         found_match_d = True
     else:
         found_match_d = False
