@@ -17,9 +17,9 @@ print('Preparing data...')
 # Get required data
 station_data, station_edges, station_list = read_data.get_data()
 
-data_to_csv.write_to_csv(station_data, 'station_data')
-data_to_csv.write_to_csv(station_edges, 'station_edges')
-data_to_csv.write_to_csv(sorted(station_list), 'station_list')
+# data_to_csv.write_to_csv(station_data, 'station_data')
+# data_to_csv.write_to_csv(station_edges, 'station_edges')
+# data_to_csv.write_to_csv(sorted(station_list), 'station_list')
 
 # Put station data into adjacency list graph - Adjust first parameter according to size of dataset
 station_data_graph = AdjacencyListGraph(len(station_list), False, True)
@@ -28,8 +28,6 @@ station_data_graph = AdjacencyListGraph(len(station_list), False, True)
 # Add all station edges to graph
 for edge in station_edges:
     station_data_graph.insert_edge(edge[0], edge[1], edge[2])
-
-# print(station_data_graph)
 
 # Gather route information from the customer
 starting_station = str(input('Input a starting station: '))
@@ -54,7 +52,23 @@ for station in station_list:
     else:
         found_match_d = False
 
+print(starting_station)
+
 # TODO: Run algorithm here to find shortest path
+
+output = []
+top_column = ['']
+for i in station_list:
+    d, pi = dijkstra.dijkstra(station_data_graph, i[0])
+    d.insert(0, i[1])
+    pi.insert(0, i[1])
+    output.append(d)
+    output.append(pi)
+    top_column.append(i[1])
+
+output.insert(0, top_column)
+
+data_to_csv.write_to_csv(output, 'all_outputs')
 
 
 # TODO: Display routing here

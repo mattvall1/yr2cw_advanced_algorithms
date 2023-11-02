@@ -10,7 +10,7 @@ import numpy as np
 # Get data from CSV and format into appropriate data structure
 def get_data():
     # Open and read CSV file
-    with open('data/london_underground_data.csv', 'r') as file:
+    with open('data/small_data.csv', 'r') as file:
         # Read CSV file
         data = csv.reader(file)
 
