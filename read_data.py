@@ -31,7 +31,7 @@ def get_data():
     # Remove duplicate stations and add IDs
     station_list_clean = []
     count = 0
-    for station in np.unique(station_list):
+    for station in station_list:
         station_list_clean.append([int(count), station.rstrip().replace('\'', '')])
         count += 1
 

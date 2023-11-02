@@ -9,17 +9,12 @@ import numpy as np
 import read_data
 from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
 from clrs_library_slim import dijkstra
-from testing import data_to_csv
 
 # Tell user the program has started
 print('Preparing data...')
 
 # Get required data
 station_data, station_edges, station_list = read_data.get_data()
-
-# data_to_csv.write_to_csv(station_data, 'station_data')
-# data_to_csv.write_to_csv(station_edges, 'station_edges')
-# data_to_csv.write_to_csv(sorted(station_list), 'station_list')
 
 # Put station data into adjacency list graph - Adjust first parameter according to size of dataset
 station_data_graph = AdjacencyListGraph(len(station_list), False, True)
@@ -52,27 +47,36 @@ for station in station_list:
     else:
         found_match_d = False
 
-print(starting_station)
+# Run algorithm here to find shortest path
+d, pi = dijkstra.dijkstra(station_data_graph, station[0])
 
-# TODO: Run algorithm here to find shortest path
+print(d)
+print(pi)
 
-output = []
-top_column = ['']
-for i in station_list:
-    d, pi = dijkstra.dijkstra(station_data_graph, i[0])
-    d.insert(0, i[1])
-    pi.insert(0, i[1])
-    output.append(d)
-    output.append(pi)
-    top_column.append(i[1])
+# Reverse d, pi - TODO: This only works RIGHT to LEFT - it needs to do both
 
-output.insert(0, top_column)
+# Find the indexes of both station in pi
+start_index = pi.index(starting_station[0])
+dest_index = pi.index(dest_station[0])
 
-data_to_csv.write_to_csv(output, 'all_outputs')
+# Get weight (minutes) between the stations from d - we don't want to include the station after, so index - 1 is used here
+minutes_between = d[dest_index - 1]
+
+# Get sublist of pi to find the route we're taking
+stations_between = pi[start_index:dest_index + 1]
+
+# Get all station names of sublist - this should return the routing for the users station choices
+route = []
+for station in stations_between:
+    for station_details in station_list:
+        if station_details[0] == station:
+            route.append(station_details[1])
 
 
 # TODO: Display routing here
+print('The shortest route for the given stations is: ' + ' -> '.join(route))
 
 # TODO: Display time to get from start to dest here
+print('This will take ' + str(minutes_between) + ' minutes.')
 
 
