@@ -53,16 +53,18 @@ d, pi = dijkstra.dijkstra(station_data_graph, station[0])
 print(d)
 print(pi)
 
-# Reverse d, pi - TODO: This only works RIGHT to LEFT - it needs to do both
-d.reverse()
-pi.reverse()
+# Reverse d, pi - TODO: Uncomment reversal for RIGHT to LEFT, Comment for LEFT ro RIGHT - This needs fixing
+# d.reverse()
+# pi.reverse()
 
 # Find the indexes of both station in pi
 start_index = pi.index(starting_station[0])
 dest_index = pi.index(dest_station[0])
 
 # Get weight (minutes) between the stations from d - we don't want to include the station after, so index - 1 is used here
-minutes_between = d[dest_index - 1]
+# TODO: Use top for RIGHT to LEFT, bottom for LEFT to RIGHT
+# minutes_between = d[dest_index - 1]
+minutes_between = d[start_index + 1]
 
 # Get sublist of pi to find the route we're taking
 stations_between = pi[start_index:dest_index + 1]
