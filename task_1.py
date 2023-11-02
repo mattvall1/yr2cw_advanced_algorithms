@@ -54,6 +54,8 @@ print(d)
 print(pi)
 
 # Reverse d, pi - TODO: This only works RIGHT to LEFT - it needs to do both
+d.reverse()
+pi.reverse()
 
 # Find the indexes of both station in pi
 start_index = pi.index(starting_station[0])
