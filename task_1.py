@@ -4,6 +4,7 @@
     Date: 25/10/23
 """
 import numpy as np
+from testing import testing_functions
 
 # Import relevant libraries
 import read_data
@@ -23,6 +24,9 @@ station_data_graph = AdjacencyListGraph(len(station_list), False, True)
 # Add all station edges to graph
 for edge in station_edges:
     station_data_graph.insert_edge(edge[0], edge[1], edge[2])
+
+
+testing_functions.get_graph_csv(station_data_graph, station_list)
 
 # Gather route information from the customer
 starting_station = str(input('Input a starting station: '))
