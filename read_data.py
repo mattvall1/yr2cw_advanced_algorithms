@@ -74,6 +74,4 @@ def get_data():
     for station_edge_duplicate in station_edges_duplicates:
         station_edges.remove(station_edge_duplicate)
 
-    csvwrite.write_to_csv(station_data, 'station_data')
-
     return [station_data, station_edges, station_list_with_ids]
