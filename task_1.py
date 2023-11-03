@@ -57,13 +57,15 @@ print(pi)
 d.reverse()
 pi.reverse()
 
-# Find the indexes of both station in pi and put the smallest index first
+# Find the indexes of both station in pi and put the smallest index first - we also want to reverse the output to display the order in which the user imputted stations
+reverse_output = False
 if pi.index(starting_station[0]) < pi.index(dest_station[0]):
     start_index = pi.index(starting_station[0])
     dest_index = pi.index(dest_station[0])
 else:
     start_index = pi.index(dest_station[0])
     dest_index = pi.index(starting_station[0])
+    reverse_output = True
 
 # Get weight (minutes) between the stations from d - we don't want to include the station after, so index - 1 is used here
 minutes_between = d[dest_index - 1]
@@ -78,6 +80,9 @@ for station in stations_between:
         if station_details[0] == station:
             route.append(station_details[1])
 
+# Reverse outputs to display in the correct order
+if reverse_output == True:
+    route.reverse()
 
 # Display routing
 print('The shortest route for the given stations is: ' + ' -> '.join(route))
