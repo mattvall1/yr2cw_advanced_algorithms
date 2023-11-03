@@ -79,10 +79,10 @@ for station in stations_between:
             route.append(station_details[1])
 
 
-# TODO: Display routing here
+# Display routing
 print('The shortest route for the given stations is: ' + ' -> '.join(route))
 
-# TODO: Display time to get from start to dest here
+# Display time to get from start to dest
 print('This will take ' + str(minutes_between) + ' minutes.')
 
 
