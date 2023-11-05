@@ -2,3 +2,4 @@
 __pycache__
 venv/
 .idea/
+testing/testing_data.csv
