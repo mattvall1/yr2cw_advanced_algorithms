@@ -4,136 +4,10 @@
     Date: 16/10/23
 """
 import csv
-import numpy as np
 
-# ! i think the get_data function should be moved at the bottom if you are using the functions that i wrote, bc in the compile time the other functions will not have been processed 
-# ! since its a dynamically typed langauge the code it is executed in runtime so it wont know that those functions exists
-
-# Get data from CSV and format into appropriate data structure
-def get_data():
-    # Open and read CSV file
-    with open('data/london_underground_data.csv', 'r') as file:
-        # Read CSV file
-        data = csv.reader(file)
-
-        # Put data into an appropriate data structure
-        station_data = []   # edges
-        station_list = []   # nodes in the graph
-        for line in data:
-            # Add connections with times to an array
-            if line[2] != '':
-                # Format: [str: line, str: start station, str: dest. station, int: time between stations]
-                # TODO: Explain apostrophe removal in report
-                station_data.append([line[1].rstrip().replace('\'', ''), line[2].rstrip().replace('\'', ''), int(line[3])])
-
-            # Create a list of stations
-            if line[2] == '':
-                station_list.append(line[1].rstrip())
-
-    # Remove duplicate stations
-    # ! not sure if its a good idea to put all the algorhtms in one function. if there is an error anywhere in the 74 lines of code that you have, debugging this will be horrible. if you have time try to make functions from it
-    # ! A FUNCTION SHOULD ONLY DO ONE THING
-    station_list_no_duplicates = remove_duplicate_stations(station_list) # return the nodes in the graph
-    # Add IDs to stations
-    station_list_with_ids = add_id_to_stations(station_list_no_duplicates)
-    
-    # Assign the station IDs to each connection, to create edges to insert into the graph
-    # ! if there is as problem in the  code it must be here, so far everything looks good
-    """
-    my impolementation of an undirected graph
-    """
-    # station_edges = []
-    # all_possible_edges = set()
-    # for start, stop, time in station_data:
-    #     all_possible_edges.add((start, stop, time))
-    #     all_possible_edges.add((stop, start, time))
-    # all_possible_edges = list(all_possible_edges)
-    # print(all_possible_edges)
-    """
-    but you have to do it with indexes so its tricky if you use the variable station_list_with_ids with a list 
-    why not a dict() and then you map the name with its index?
-
-    so to put all the stations with its index lets have a variable called staions which is all the nodes in the graph
-    assumptions: a station only appear once and only once (cannot be: ["cutty", "cutty"])
-    
-    stations = []
-    map_station_idx = defaultdict(int)
-    count = 0
-
-    # put values on map
-    for s in station:
-        map_station_idx[s] = count  # assign -> "cutty" = 0         then        "greenwich" = 1     etc...
-        count += 1
-    
-    # now that we have the values indexed, we can map the any staiton in O(1) time 
-    # lets use the undirected graph code that i wrote above
-    station_edges = []  # ['Bethnal Green', 'Liverpool Street', '3']
-    all_possible_edges = set()
-    for start, stop, time in station_data:
-        all_possible_edges.add((map_station_idx[start], map_station_idx[stop], time))
-        all_possible_edges.add((map_station_idx[stop], map_station_idx[start], time))
-    all_possible_edges = list(all_possible_edges)
-
-    # now all_possible_edges is your final result 
-    # in your code you are calling it station_edges
-    # i kinda bruted forced the solution using set, not sure if there is a better implementation, if you find it out please let me know :)
-    """
-    
-    
-    station_edges = []
-    for connection in station_data:
-        # Get station edges to insert into array
-        start = 0
-        dest = 0
-        for station in station_list_with_ids:
-            # Start
-            if connection[0] == station[1]:
-                start = station[0]
-            # Destination
-            if connection[1] == station[1]:
-                dest = station[0]
-
-        # Make sure each edge is in the same order - this is so we can get the smallest weight easier
-        if start < dest:
-            station_edges.append([start, dest, int(connection[2])])
-        else:
-            station_edges.append([dest, start, int(connection[2])])
-
-    # Remove duplicate edges
-    station_edges = [list(x) for x in set(tuple(x) for x in station_edges)]
-    station_edges = sorted(station_edges)
-    station_edges_duplicates = []
-    for i in range(0, len(station_edges)):
-        # Get a list of the duplicated edges with the higher weight
-        if station_edges[i][0] == station_edges[i - 1][0] and station_edges[i][1] == station_edges[i - 1][1]:
-            station_edges_duplicates.append(station_edges[i])
-    for station_edge_duplicate in station_edges_duplicates:
-        station_edges.remove(station_edge_duplicate)
-    print(station_edges)
-
-    return [station_data, station_edges, station_list_with_ids]
-
-# get_data()
-
-
-# return the an array of the nodes in the graph
+# Return an array of the nodes in the graph
 def remove_duplicate_stations(station_list) -> list:
-    # Mathew implementation
-    # station_list_no_duplicates = []
-    # seen_stations = set()
-    # for station in station_list:
-    #     if station not in seen_stations:
-    #         station_list_no_duplicates.append(station)
-    #         seen_stations.add(station)
-    # return station_list_no_duplicates
-    
-    # a better approach (brute froce but quick and readable)
     return list(set(station_list))
-
-# test remove_duplicate_stations
-# test_remove_duplicate_stations = remove_duplicate_stations([1,1,1,2,2,2,3, "cutty", "cutty", "cutty"])
-# print(test_remove_duplicate_stations)
-
 
 # return the nodes with an index 
 # ? is there any way on how you wanna index all the nodes?, e.g. cutty sark must be index 5? ig it doesnt matter 
@@ -151,45 +25,102 @@ def add_id_to_stations(station_list_no_duplicates:list) -> list:
         count += 1
     return station_list_with_ids
 
-# not sure how to test this hahaha
-# id_of_stations = add_id_to_stations(["cutty", "greenwich", "shadwell", "bak"])
-# print(id_of_stations)
+# Get data from CSV and format into appropriate data structure - using above functions
+def get_data():
+    # Open and read CSV file
+    with open('data/london_underground_data.csv', 'r') as file:
+        # Read CSV file
+        data = csv.reader(file)
+
+        # Put data into an appropriate data structure
+        station_data = []  # edges
+        station_list = []  # nodes in the graph
+        for line in data:
+            # Add connections with times to an array
+            if line[2] != '':
+                # Format: [str: line, str: start station, str: dest. station, int: time between stations]
+                # TODO: Explain apostrophe removal in report
+                station_data.append(
+                    [line[1].rstrip().replace('\'', ''), line[2].rstrip().replace('\'', ''), int(line[3])])
+
+            # Create a list of stations
+            if line[2] == '':
+                station_list.append(line[1].rstrip())
+
+    # Remove duplicate stations
+    station_list_no_duplicates = remove_duplicate_stations(station_list)  # return the nodes in the graph
+
+    # Add IDs to stations
+    station_list_with_ids = add_id_to_stations(station_list_no_duplicates)
 
 
-# create undirected graph with the edges -> return [start_idx, end_idx, time]
-# ! too hard to use in a function, i think the system is too coupled so ill write it in get_data()
-# def create_undirected_edges(station_data) -> list:
-#     station_edges = []
-#     for connection in station_data:
-#         # Get station edges to insert into array
-#         start = 0
-#         dest = 0
-#         for station in station_list_with_ids:
-#             # Start
-#             if connection[0] == station[1]:
-#                 start = station[0]
-#             # Destination
-#             if connection[1] == station[1]:
-#                 dest = station[0]
+    # Assign the station IDs to each connection, to create edges to insert into the graph
+    station_edges = []
+    all_possible_edges = set()
+    for start, stop, time in station_data:
+        all_possible_edges.add((start, stop, time))
+        all_possible_edges.add((stop, start, time))
+    all_possible_edges = list(all_possible_edges)
+    print(all_possible_edges)
+    """
+    but you have to do it with indexes so its tricky if you use the variable station_list_with_ids with a list 
+    why not a dict() and then you map the name with its index?
 
-#         # Make sure each edge is in the same order - this is so we can get the smallest weight easier
-#         if start < dest:
-#             station_edges.append([start, dest, int(connection[2])])
-#         else:
-#             station_edges.append([dest, start, int(connection[2])])
+    so to put all the stations with its index lets have a variable called staions which is all the nodes in the graph
+    assumptions: a station only appear once and only once (cannot be: ["cutty", "cutty"])
 
-#     # Remove duplicate edges
-#     station_edges = [list(x) for x in set(tuple(x) for x in station_edges)]
-#     station_edges = sorted(station_edges)
-#     station_edges_duplicates = []
-#     for i in range(0, len(station_edges)):
-#         # Get a list of the duplicated edges with the higher weight
-#         if station_edges[i][0] == station_edges[i - 1][0] and station_edges[i][1] == station_edges[i - 1][1]:
-#             station_edges_duplicates.append(station_edges[i])
-#     for station_edge_duplicate in station_edges_duplicates:
-#         station_edges.remove(station_edge_duplicate)
+    stations = []
+    map_station_idx = defaultdict(int)
+    count = 0
 
+    # put values on map
+    for s in station:
+        map_station_idx[s] = count  # assign -> "cutty" = 0         then        "greenwich" = 1     etc...
+        count += 1
 
-if __name__ == "__main__":
-    get_data()
-    pass
+    # now that we have the values indexed, we can map the any staiton in O(1) time 
+    # lets use the undirected graph code that i wrote above
+    station_edges = []  # ['Bethnal Green', 'Liverpool Street', '3']
+    all_possible_edges = set()
+    for start, stop, time in station_data:
+        all_possible_edges.add((map_station_idx[start], map_station_idx[stop], time))
+        all_possible_edges.add((map_station_idx[stop], map_station_idx[start], time))
+    all_possible_edges = list(all_possible_edges)
+
+    # now all_possible_edges is your final result 
+    # in your code you are calling it station_edges
+    # i kinda bruted forced the solution using set, not sure if there is a better implementation, if you find it out please let me know :)
+    """
+
+    # station_edges = []
+    # for connection in station_data:
+    #     # Get station edges to insert into array
+    #     start = 0
+    #     dest = 0
+    #     for station in station_list_with_ids:
+    #         # Start
+    #         if connection[0] == station[1]:
+    #             start = station[0]
+    #         # Destination
+    #         if connection[1] == station[1]:
+    #             dest = station[0]
+    #
+    #     # Make sure each edge is in the same order - this is so we can get the smallest weight easier
+    #     if start < dest:
+    #         station_edges.append([start, dest, int(connection[2])])
+    #     else:
+    #         station_edges.append([dest, start, int(connection[2])])
+    #
+    # # Remove duplicate edges
+    # station_edges = [list(x) for x in set(tuple(x) for x in station_edges)]
+    # station_edges = sorted(station_edges)
+    # station_edges_duplicates = []
+    # for i in range(0, len(station_edges)):
+    #     # Get a list of the duplicated edges with the higher weight
+    #     if station_edges[i][0] == station_edges[i - 1][0] and station_edges[i][1] == station_edges[i - 1][1]:
+    #         station_edges_duplicates.append(station_edges[i])
+    # for station_edge_duplicate in station_edges_duplicates:
+    #     station_edges.remove(station_edge_duplicate)
+    # print(station_edges)
+
+    return [station_data, all_possible_edges, station_list_with_ids]
