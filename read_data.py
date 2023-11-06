@@ -109,7 +109,7 @@ def get_data():
             station_edges_duplicates.append(station_edges[i])
     for station_edge_duplicate in station_edges_duplicates:
         station_edges.remove(station_edge_duplicate)
-    print(station_edges)
+    # print(station_edges)
 
     return [station_data, station_edges, station_list_with_ids]
 
