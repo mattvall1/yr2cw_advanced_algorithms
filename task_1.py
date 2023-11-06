@@ -3,7 +3,6 @@
     Purpose: Task 1 - Data added to graph and shortest path algorithm
     Date: 25/10/23
 """
-import numpy as np
 from testing import testing_functions
 
 # Import relevant libraries
