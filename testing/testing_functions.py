@@ -9,7 +9,7 @@ from clrs_library_slim import dijkstra
 
 
 def write_to_csv(data, filename='testing_data'):
-    with open("testing/"+filename+".csv", "w") as file_to_write:
+    with open("testing/csv_output/"+filename+".csv", "w") as file_to_write:
         # Create writer to write row
         writer = csv.writer(file_to_write)
         # Write each row of data to the CSV file

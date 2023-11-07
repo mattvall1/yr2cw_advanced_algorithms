@@ -28,6 +28,8 @@ def add_id_to_stations(station_list_no_duplicates:list) -> list:
 # Get data from CSV and format into appropriate data structure - using above functions
 def get_data():
     # Open and read CSV file
+    # with open('data/small_data.csv', 'r') as file: # Uncomment for testing on one line - Bakerloo
+    # with open('data/medium_data.csv', 'r') as file: # Uncomment for testing on two lines - Bakerloo + Central
     with open('data/london_underground_data.csv', 'r') as file:
         # Read CSV file
         data = csv.reader(file)
