@@ -15,9 +15,16 @@ vertices, edges = read_data.get_data()
 # Get input from the user
 # TODO: Validity check
 start_station = input('Input starting station: ')
-end_station = input('Input destination station: ')
+dest_station = input('Input destination station: ')
 
 testing_functions.write_to_csv(edges, 'edges')
+print_verts = []
+for vetrice in vertices:
+    print_verts.append([vetrice])
+
+testing_functions.write_to_csv(print_verts, 'vertices')
+
+
 
 # Create a graph from the clrs library for Adjacency lists
 underground_graph = AdjacencyListGraph(len(vertices), False, True)
@@ -30,6 +37,8 @@ for edge in edges:
         # Insert edge into graph
         underground_graph.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
 
+testing_functions.get_graph_csv(underground_graph, vertices)
+exit()
 # Run Dijkstra's algorithm from the clrs library to find the shortest route to all stations based on user input
 d, pi = dijkstra(underground_graph, vertices.index(start_station)) # Starting station here
 for i in range(len(vertices)):
