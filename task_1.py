@@ -1,21 +1,36 @@
+"""
+    Author: Matthew Vallance 001225832
+    Purpose: Simple script to put data into a CSV for comparison externally
+    Date: 20/10/23
+"""
+
 from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
 from clrs_library_slim.dijkstra import dijkstra
 import read_data
 import testing.testing_functions as testing_functions
 
-station_list, station_data = read_data.get_data()
+# Get data with appropriate variable names
+vertices, edges = read_data.get_data()
 
+# Get input from the user
+# TODO: Validity check
+start_station = input('Input starting station: ')
+end_station = input('Input destination station: ')
 
-# Textbook example.
-vertices = station_list
-edges = station_data
-# print(edges)
 testing_functions.write_to_csv(edges, 'edges')
-# exit()
-graph1 = AdjacencyListGraph(len(vertices), False, True)
 
+# Create a graph from the clrs library for Adjacency lists
+underground_graph = AdjacencyListGraph(len(vertices), False, True)
+
+# Insert edges
 for edge in edges:
-    graph1.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
-d, pi = dijkstra(graph1, vertices.index('Charing Cross')) # Starting station here
+    # Check if edge already exists in the graph
+    existing_edges = underground_graph.get_edge_list()
+    if (vertices.index(edge[0]), vertices.index(edge[1])) not in existing_edges:
+        # Insert edge into graph
+        underground_graph.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
+
+# Run Dijkstra's algorithm from the clrs library to find the shortest route to all stations based on user input
+d, pi = dijkstra(underground_graph, vertices.index(start_station)) # Starting station here
 for i in range(len(vertices)):
     print(vertices[i] + ": d = " + str(d[i]) + ", pi = " + ("None" if pi[i] is None else vertices[pi[i]]))
