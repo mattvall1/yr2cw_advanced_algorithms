@@ -15,6 +15,7 @@ def write_to_csv(data, filename='testing_data'):
         # Write each row of data to the CSV file
         for row in data:
             writer.writerow(row)
+        print('Generated ' + filename + '.csv')
 
 
 def get_graph_csv(station_data_graph, station_list):
