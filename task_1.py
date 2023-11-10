@@ -26,7 +26,7 @@ underground_graph = AdjacencyListGraph(len(vertices), False, True)
 for edge in edges:
     # Check if edge already exists in the graph
     existing_edges = underground_graph.get_edge_list()
-    if (vertices.index(edge[0]), vertices.index(edge[1])) not in existing_edges:
+    if (vertices.index(edge[0]), vertices.index(edge[1])) not in existing_edges and (vertices.index(edge[1]), vertices.index(edge[0])) not in existing_edges:
         # Insert edge into graph
         underground_graph.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
 
