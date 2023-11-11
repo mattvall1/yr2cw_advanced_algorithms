@@ -52,6 +52,21 @@ for i in range(len(vertices)):
 # Change 'None' values in pi to -1 for easier coding later
 pi = [-1 if x is None else x for x in pi]
 
+# TESTING CODE
+print('d:', d)
+print('pi:', pi)
+
+# Convert Pi into station names list:
+pi_names = []
+for x in pi:
+    if x != -1:
+        pi_names.append(vertices[x])
+    else:
+        pi_names.append('ORIGIN')
+
+print(pi_names)
+# END TESTING CODE
+
 
 # Get route - Traverse backwards?
 """
