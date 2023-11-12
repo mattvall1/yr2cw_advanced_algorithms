@@ -46,8 +46,10 @@ next_station_to_find = dest_station
 while all_stations_added is False:
     for dijkstra_output in dijkstra_outputs:
         if dijkstra_output['dest'] == str(next_station_to_find):
+            # Add each station to route list to print later
             route.append(dijkstra_output['dest'])
             next_station_to_find = dijkstra_output['pi']
+            # Set all_stations_added to True, this breaks the loop as we have all the details needed
             if dijkstra_output['pi'] == 'None':
                 all_stations_added = True
 
