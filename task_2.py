@@ -1,6 +1,6 @@
 """
     Author: Matthew Vallance 001225832
-    Purpose:
+    Purpose: Task 2 of the coursework. This returns the number of stops between two user-inputted stations and the route they would need to take.
     Date: 20/10/23
 """
 
