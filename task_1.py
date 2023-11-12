@@ -39,14 +39,6 @@ for i in range(len(vertices)):
     if str(vertices[i]) == str(dest_station):
         d_dest_station = d[i]
 
-"""
-This should return as following, regardless of order the user inputs the data
-    Test with Baker Street -> Edgware road. Should return: Baker Street -> Marylebone -> Edgware Road
-    Test with Edgware road -> Baker Street. Should return: Edgware Road -> Marylebone -> Baker Street 
-    
-    Test with Edgware road -> Regents park. Should return: Edgware Road -> Marylebone -> Baker Street -> Regents park
-    Test with Regents park -> Edgware road. Should return: Regents park -> Baker Street -> Marylebone -> Edgware Road
-"""
 # Get route by looking for each predecessor in out Dijkstra's output
 route = []
 all_stations_added = False

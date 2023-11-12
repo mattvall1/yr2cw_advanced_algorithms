@@ -12,10 +12,10 @@ def remove_duplicate_stations(station_list) -> list:
 # Get data from CSV and format into appropriate data structure - using above functions
 def get_data():
     # Open and read CSV file
-    with open('data/small_data.csv', 'r') as file: # Uncomment for testing on one line - Bakerloo
+    # with open('data/small_data.csv', 'r') as file: # Uncomment for testing on one line - Bakerloo
     # with open('data/medium_data.csv', 'r') as file: # Uncomment for testing on two lines - Bakerloo + Central
     # with open('data/large_data.csv', 'r') as file: # Uncomment for testing on three lines - Bakerloo + Central + Circle
-    # with open('data/london_underground_data.csv', 'r') as file:
+    with open('data/london_underground_data.csv', 'r') as file:
         # Read CSV file
         data = csv.reader(file)
 
