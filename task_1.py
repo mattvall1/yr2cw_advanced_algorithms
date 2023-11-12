@@ -1,6 +1,6 @@
 """
     Author: Matthew Vallance 001225832
-    Purpose: Simple script to put data into a CSV for comparison externally
+    Purpose: Task 1 of the coursework. This returns the time it takes to get between two user-inputted stations and the route theu wpuld need to take.
     Date: 20/10/23
 """
 
