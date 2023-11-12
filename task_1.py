@@ -7,7 +7,6 @@
 from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
 from clrs_library_slim.dijkstra import dijkstra
 import read_data
-import testing.testing_functions as testing_functions
 
 # Get data with appropriate variable names
 vertices, edges = read_data.get_data()
@@ -16,15 +15,6 @@ vertices, edges = read_data.get_data()
 # TODO: Validity check
 start_station = input('Input starting station: ')
 dest_station = input('Input destination station: ')
-
-testing_functions.write_to_csv(edges, 'edges')
-print_verts = []
-for vetrice in vertices:
-    print_verts.append([vetrice])
-
-testing_functions.write_to_csv(print_verts, 'vertices')
-
-
 
 # Create a graph from the clrs library for Adjacency lists
 underground_graph = AdjacencyListGraph(len(vertices), False, True)
@@ -37,40 +27,18 @@ for edge in edges:
         # Insert edge into graph
         underground_graph.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
 
-
 # Run Dijkstra's algorithm from the clrs library to find the shortest route to all stations based on user input
 d, pi = dijkstra(underground_graph, vertices.index(start_station))
 d_dest_station = 0
+dijkstra_outputs = []
 for i in range(len(vertices)):
-    print(vertices[i] + ": d = " + str(d[i]) + ", pi = " + ("None" if pi[i] is None else vertices[pi[i]]))
+    # Create a sensible data structure of the output
+    dijkstra_outputs.append({'dest': vertices[i], 'd': d[i], 'pi': ("None" if pi[i] is None else vertices[pi[i]])})
+
     # Get d for destination station
     if str(vertices[i]) == str(dest_station):
         d_dest_station = d[i]
-        # print(vertices[pi[i]])
 
-# Change 'None' values in pi to -1 for easier coding later
-pi = [-1 if x is None else x for x in pi]
-
-# TESTING CODE
-# Convert Pi into station names list:
-# pi_names = []
-# for x in pi:
-#     if x != -1:
-#         pi_names.append(vertices[x])
-#     else:
-#         pi_names.append('ORIGIN')
-#
-# d.insert(0, 'd')
-# pi.insert(0, 'pi')
-# pi_names.insert(0, 'PI_NAMES')
-# vertices.insert(0, 'VERTS')
-# testing_functions.write_to_csv([vertices, pi_names, pi, d],'dpi')
-
-# print(pi_names)
-# END TESTING CODE
-
-
-# Get route - Traverse backwards?
 """
 This should return as following, regardless of order the user inputs the data
     Test with Baker Street -> Edgware road. Should return: Baker Street -> Marylebone -> Edgware Road
@@ -79,23 +47,19 @@ This should return as following, regardless of order the user inputs the data
     Test with Edgware road -> Regents park. Should return: Edgware Road -> Marylebone -> Baker Street -> Regents park
     Test with Regents park -> Edgware road. Should return: Regents park -> Baker Street -> Marylebone -> Edgware Road
 """
-
-"""
-https://stackoverflow.com/questions/56609206/how-do-i-keep-track-of-the-shortest-paths-in-the-dijkstra-algorithm-when-using-a
-You don't have to keep track of the whole path for each vertex as you've suggested. To produce the s-v paths themselves, the only thing you have to record for each vertex v is the edge that "discovered" it.
-
-In other words, as a vertex v is being discovered by the algorithm, you record the edge (u,v) on which it achieved the value that minimized the distance from s.
-
-Now, assuming you have the "discovering" edge for each vertex v in the graph, the path from s to v can be computed as follows: if (u,v) is the ("discovering") edge stored for v, then the shortest path from s to v is the path from s to u (which can be computed recursively), followed by the single edge (u,v).
-
-So, to construct the shortest path from s (START) to v (DEST), you start at vertex v (DEST), then you follow the edge stored for v in the reverse direction, and continue until you reach s.
-"""
+# Get route by looking for each predecessor in out Dijkstra's output
 route = []
 all_stations_added = False
 next_station_to_find = dest_station
+while all_stations_added is False:
+    for dijkstra_output in dijkstra_outputs:
+        if dijkstra_output['dest'] == str(next_station_to_find):
+            route.append(dijkstra_output['dest'])
+            next_station_to_find = dijkstra_output['pi']
+            if dijkstra_output['pi'] == 'None':
+                all_stations_added = True
 
-
-
+# TODO: Need to reverse route array at end - if needed depending on start and destination order
 # Display routing
 print('The shortest route for the given stations is: ' + ' -> '.join(route))
 
