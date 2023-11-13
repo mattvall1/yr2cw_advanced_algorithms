@@ -1,7 +1,7 @@
 """
     Author: Matthew Vallance 001225832
     Purpose: Task 3 - Revised task_2 but with the Bellman Ford Algorithm
-    Date: 20/10/23
+    Date: 23/10/23
 """
 
 from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
