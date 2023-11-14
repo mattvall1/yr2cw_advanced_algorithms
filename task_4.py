@@ -24,9 +24,6 @@ for edge in edges:
 # Return MST of underground_graph
 underground_graph_mst = mst.kruskal(underground_graph)
 
-# Total removed edges
-print(mst.get_total_weight(underground_graph) - mst.get_total_weight(underground_graph_mst))
-
 # Get edge lists for both graphs
 underground_graph_edges = AdjacencyListGraph.get_edge_list(underground_graph)
 underground_graph_mst_edges = AdjacencyListGraph.get_edge_list(underground_graph_mst)
