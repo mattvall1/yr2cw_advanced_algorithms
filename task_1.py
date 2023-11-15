@@ -40,8 +40,9 @@ while all_stations_added is False:
             # Set all_stations_added to True, this breaks the loop as we have all the details needed
             if dijkstra_output['pi'] == 'None':
                 all_stations_added = True
+# reverse route, you can do "".join(reverse(route))
+route.reverse()
 
-# TODO: Need to reverse route array at end - if needed depending on start and destination order
 # Display routing
 print('The shortest route for the given stations is: ' + ' -> '.join(route))
 

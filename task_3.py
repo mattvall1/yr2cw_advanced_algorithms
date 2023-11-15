@@ -37,10 +37,14 @@ while all_stations_added is False:
             # Set all_stations_added to True, this breaks the loop as we have all the details needed
             if bellman_output['pi'] == 'None':
                 all_stations_added = True
+route.reverse()
 
-# TODO: Need to reverse route array at end - if needed depending on start and destination order
 # Display routing
 print('The shortest route for the given stations is: ' + ' -> '.join(route))
 
 # Display count of stations to get to the destination minus 2 - we only want the count of stations in between
 print('You will pass through ' + str(station_count - 2) + ' stations on your journey.')
+
+# ? missing 3b
+# Your team must also produce a histogram of the journey times (in the count of stations or
+# stops) between every station pair, utilising the calculations from the previous subtask (3a).
