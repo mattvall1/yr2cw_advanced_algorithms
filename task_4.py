@@ -4,22 +4,10 @@
     Date: 14/11/23
 """
 from clrs_library_slim import mst
-from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
 import read_data
 
-# Get data with appropriate variable names
-vertices, edges = read_data.get_data()
-
-# Create a graph from the clrs library for Adjacency lists
-underground_graph = AdjacencyListGraph(len(vertices), False, True)
-
-# Insert edges
-for edge in edges:
-    # Check if edge already exists in the graph
-    existing_edges = underground_graph.get_edge_list()
-    if (vertices.index(edge[0]), vertices.index(edge[1])) not in existing_edges and (vertices.index(edge[1]), vertices.index(edge[0])) not in existing_edges:
-        # Insert edge into graph
-        underground_graph.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
+# Get graph and vertices
+underground_graph, vertices = read_data.get_data()
 
 # Return MST of underground_graph
 underground_graph_mst = mst.kruskal(underground_graph)
