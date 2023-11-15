@@ -13,7 +13,7 @@ import utils
 underground_graph, vertices = data_processing.get_data()
 
 # FOR HISTOGRAM CREATION:
-# testing_functions.get_graph_csv_task_2_multithread(underground_graph, vertices)
+# testing_functions.get_graph_csv_task_2(underground_graph, vertices)
 # exit()
 
 # Get station inputs from the user
