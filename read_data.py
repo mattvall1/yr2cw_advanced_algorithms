@@ -4,10 +4,29 @@
     Date: 16/10/23
 """
 import csv
+from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
+
 
 # Return an array of the nodes in the graph
 def remove_duplicate_stations(station_list) -> list:
     return list(set(station_list))
+
+
+def create_underground_graph(vertices, edges):
+    # Create a graph from the clrs library for Adjacency lists
+    underground_graph = AdjacencyListGraph(len(vertices), False, True)
+
+    # Insert edges
+    for edge in edges:
+        # Check if edge already exists in the graph
+        existing_edges = underground_graph.get_edge_list()
+        if (vertices.index(edge[0]), vertices.index(edge[1])) not in existing_edges and (
+                vertices.index(edge[1]), vertices.index(edge[0])) not in existing_edges:
+            # Insert edge into graph
+            underground_graph.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
+
+    return underground_graph
+
 
 # Get data from CSV and format into appropriate data structure - using above functions
 def get_data():
@@ -37,4 +56,7 @@ def get_data():
     # Remove duplicate stations
     station_list_no_duplicates = remove_duplicate_stations(station_list)
 
-    return [station_list_no_duplicates, station_data]
+    # Create the graph
+    underground_graph = create_underground_graph(station_list_no_duplicates, station_data)
+
+    return [underground_graph, station_list_no_duplicates]
