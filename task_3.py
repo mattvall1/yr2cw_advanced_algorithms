@@ -5,15 +5,14 @@
 """
 
 from clrs_library_slim.bellman_ford import bellman_ford
-import read_data
+import data_processing
+import utils
 
 # Get graph and vertices
-underground_graph, vertices = read_data.get_data()
+underground_graph, vertices = data_processing.get_data()
 
-# Get input from the user
-# TODO: Validity check
-start_station = input('Input starting station: ')
-dest_station = input('Input destination station: ')
+# Get station inputs from the user
+start_station, dest_station = utils.get_stations_from_user(vertices)
 
 # Run Bellman Ford algorithm from the clrs library to find the shortest route to all stations based on user input
 d, pi, negative_weight_cycle = bellman_ford(underground_graph, vertices.index(start_station))
