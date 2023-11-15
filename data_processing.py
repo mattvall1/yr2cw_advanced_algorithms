@@ -34,7 +34,7 @@ def get_data():
     # with open('data/small_data.csv', 'r') as file: # Uncomment for testing on one line - Bakerloo
     # with open('data/medium_data.csv', 'r') as file: # Uncomment for testing on two lines - Bakerloo + Central
     # with open('data/large_data.csv', 'r') as file: # Uncomment for testing on three lines - Bakerloo + Central + Circle
-    with open('data/london_underground_data.csv', 'r') as file:
+    with open('../data/london_underground_data.csv', 'r') as file:
         # Read CSV file
         data = csv.reader(file)
 
