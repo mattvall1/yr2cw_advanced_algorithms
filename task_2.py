@@ -5,11 +5,16 @@
 """
 
 from clrs_library_slim.dijkstra import dijkstra
+from testing import testing_functions
 import data_processing
 import utils
 
 # Get graph and vertices
 underground_graph, vertices = data_processing.get_data()
+
+# FOR HISTOGRAM CREATION:
+# testing_functions.get_graph_csv_task_2_multithread(underground_graph, vertices)
+# exit()
 
 # Get station inputs from the user
 start_station, dest_station = utils.get_stations_from_user(vertices)
