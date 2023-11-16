@@ -26,7 +26,5 @@ for edge in removed_edges:
     print(vertices[edge[0]] + ' -- ' + vertices[edge[1]])
 
 # TODO: Ask user to input two stations, so we can check feasibility of removing the link between them
-start_station = input('Input starting station: ')
-dest_station = input('Input destination station: ')
 
 
