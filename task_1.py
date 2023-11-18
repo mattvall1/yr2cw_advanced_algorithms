@@ -40,17 +40,19 @@ def task_1_algorithm(underground_graph, vertices, start_station, dest_station):
     return route, d_dest_station
 
 
-# Get graph and vertices
-underground_graph, vertices = data_processing.get_data()
+# Only run this code if its task_1 that is run (prevents issue where we're reusing this code in task_4)
+if __name__ == "__main__":
+    # Get graph and vertices
+    underground_graph, vertices = data_processing.get_data()
 
-# Get station inputs from the user
-start_station, dest_station = utils.get_stations_from_user(vertices)
+    # Get station inputs from the user
+    start_station, dest_station = utils.get_stations_from_user(vertices)
 
-route, d_dest_station = task_1_algorithm(underground_graph, vertices, start_station, dest_station)
+    route, d_dest_station = task_1_algorithm(underground_graph, vertices, start_station, dest_station)
 
-# TODO: Need to reverse route array at end - if needed depending on start and destination order
-# Display routing
-print('The shortest route for the given stations is: ' + ' -> '.join(route))
+    # TODO: Need to reverse route array at end - if needed depending on start and destination order
+    # Display routing
+    print('The shortest route for the given stations is: ' + ' -> '.join(route))
 
-# Display time to get from start to dest
-print('This will take ' + str(d_dest_station) + ' minutes.')
+    # Display time to get from start to dest
+    print('This will take ' + str(d_dest_station) + ' minutes.')
