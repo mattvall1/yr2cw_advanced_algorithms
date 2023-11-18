@@ -24,13 +24,12 @@ def task_4_process(graph, vertices, start, dest):
     removed_edges_names = []
     for edge in removed_edges:
         removed_edges_names.append((vertices[edge[0]], vertices[edge[1]]))
-        print(vertices[edge[0]] + ' -- ' + vertices[edge[1]])
 
     # Get the route before and after we have run MST, so we can check feasibility of the journey
     original_route, original_time = task_1_algorithm(graph, vertices, start, dest)
     new_route, new_time = task_1_algorithm(underground_graph_mst, vertices, start, dest)
 
-    return original_route, original_time, new_route, new_time
+    return original_route, original_time, new_route, new_time, removed_edges_names
 
 
 def run_task_4():
@@ -38,22 +37,35 @@ def run_task_4():
     underground_graph, underground_vertices, start_station, dest_station = utils.return_data()
 
     # Run the process
-    original_route, original_time, new_route, new_time = task_4_process(underground_graph, underground_vertices, start_station, dest_station)
-    print(original_route, new_route)
+    original_route, original_time, new_route, new_time, removed_edges_names = task_4_process(underground_graph, underground_vertices, start_station, dest_station)
 
-    # If the journey takes more than double the time it originally took, this is infeasible
-    if (original_time * 2) < new_time:
+    # If the journey takes more than triple the time it originally took, this is infeasible
+    if (original_time * 3) < new_time:
         print('The journey between ' + start_station + ' and ' + dest_station + ' took ' + str(
             original_time) + ' minutes. It now takes ' + str(
             new_time) + ' minutes. This closure is infeasible as it takes more than double the original journey time.')
 
+    # If the new route has more than 3 extra stops, this is infeasible
     if (len(original_route) + 3) < len(new_route):
         print('The shortest route used to be: ' + ' -> '.join(original_route) + '. It is now: ' + ' -> '.join(
             new_route) + '. This is more than 3 extra stations to complete this journey therefore its unfeasible.')
 
+    # If neither of these apply, it is feasible
     if (original_time * 2) > new_time and (len(original_route) + 3) > len(new_route):
-        print(
-            'There is no notable difference in journey time or route length between ' + start_station + ' and ' + dest_station + '. This closure would be feasible.')
+        print('There is no notable difference in journey time or route length between ' + start_station + ' and ' + dest_station + '. This closure would be feasible.')
+        print(start_station + ' -- ' + dest_station)
+
+    # Ask the user if they want to view all closures
+    view_closures = ''
+    while view_closures != 'Y':
+        view_closures = input('View all possible closures - regardless of feasibility? (Y/N): ')
+        if view_closures == 'Y':
+            for edge in removed_edges_names:
+                print(edge[0] + ' -- ' + edge[1])
+        elif view_closures == 'N':
+            print('Not a valid option.')
+        else:
+            break
 
     # Add a newline
     print('\n')
