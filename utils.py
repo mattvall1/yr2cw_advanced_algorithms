@@ -3,6 +3,7 @@
     Purpose: Utils file for cleaner code
     Date: 15/11/23
 """
+import data_processing
 
 
 # Check validity of user inputs - return an error message
@@ -42,3 +43,14 @@ def get_stations_from_user(vertices):
             valid_inputs = True
 
     return start_station, dest_station
+
+
+def return_data():
+    # Get graph and vertices
+    underground_graph, underground_vertices = data_processing.get_data()
+
+    # Get station inputs from the user
+    start_station, dest_station = get_stations_from_user(underground_vertices)
+
+    # Return all data
+    return underground_graph, underground_vertices, start_station, dest_station

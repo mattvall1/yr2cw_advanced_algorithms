@@ -5,7 +5,6 @@
 """
 
 from clrs_library_slim.dijkstra import dijkstra
-import data_processing
 import utils
 
 
@@ -40,18 +39,20 @@ def task_1_algorithm(graph, vertices, start, dest):
     return route, d_dest_station
 
 
-# Only run this code if its task_1 that is run (prevents issue where we're reusing this code in task_4)
-if __name__ == "__main__":
-    # Get graph and vertices
-    underground_graph, underground_vertices = data_processing.get_data()
+def run_task_1():
+    # Get data
+    underground_graph, underground_vertices, start_station, dest_station = utils.return_data()
 
-    # Get station inputs from the user
-    start_station, dest_station = utils.get_stations_from_user(underground_vertices)
-
+    # Run the algorithm
     route, dest_time = task_1_algorithm(underground_graph, underground_vertices, start_station, dest_station)
 
     # Display routing
     print('The shortest route for the given stations is: ' + ' -> '.join(route))
 
     # Display time to get from start to dest
-    print('This will take ' + str(dest_time) + ' minutes.')
+    print('This will take ' + str(dest_time) + ' minutes.\n')
+
+
+# Only run this code if its task_1 that is run
+if __name__ == "__main__":
+    run_task_1()
