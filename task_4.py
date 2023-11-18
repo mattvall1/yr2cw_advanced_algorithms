@@ -31,9 +31,16 @@ for edge in removed_edges:
 # Get inputs from user
 start_station, dest_station = utils.get_stations_from_user(vertices)
 
-# Infeasibilities:
-"""
- - Time: if it takes more than 100% longer to do a journey (double the time), this would be infeasible
- - No. of stations: if closing a connection means passengers would have to pass through more than 3 stations to get to thier destination (Bank -- Waterloo)
- -
-"""
+# Get the route before and after we have run MST, so we can check feasibility of the journey
+original_route, original_time = task_1_algorithm(underground_graph, vertices, start_station, dest_station)
+new_route, new_time = task_1_algorithm(underground_graph_mst, vertices, start_station, dest_station)
+
+# If the journey takes more than double the time it originally took, this is infeasible
+if (original_time * 2) < new_time:
+    print('The journey between ' + start_station + ' and ' + dest_station + ' took ' + str(original_time) + ' minutes. It now takes ' + str(new_time) + ' minutes. This closure is infeasible as it takes more than double the original journey time.')
+
+if (len(original_route) + 3) < len(new_route):
+    print('The shortest route used to be: ' + ' -> '.join(original_route) + '. It is now: ' + ' -> '.join(new_route) + '. This is more than 3 extra stations to complete this journey therefore its unfeasible.')
+
+if (original_time * 2) > new_time and (len(original_route) + 3) > len(new_route):
+    print('There is no notable difference in journey time or route length between ' + start_station + ' and ' + dest_station + '. This closure would be feasible.')
