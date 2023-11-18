@@ -38,7 +38,6 @@ while all_stations_added is False:
             if bellman_output['pi'] == 'None':
                 all_stations_added = True
 
-# TODO: Need to reverse route array at end - if needed depending on start and destination order
 # Display routing
 print('The shortest route for the given stations is: ' + ' -> '.join(route))
 

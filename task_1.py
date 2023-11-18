@@ -50,7 +50,6 @@ if __name__ == "__main__":
 
     route, dest_time = task_1_algorithm(underground_graph, underground_vertices, start_station, dest_station)
 
-    # TODO: Need to reverse route array at end - if needed depending on start and destination order
     # Display routing
     print('The shortest route for the given stations is: ' + ' -> '.join(route))
 
