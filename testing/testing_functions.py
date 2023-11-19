@@ -6,6 +6,7 @@
 import csv
 import time
 from clrs_library_slim import dijkstra
+import task_3
 
 
 def write_to_csv(data, filename='testing_data'):
@@ -82,6 +83,30 @@ def get_graph_csv_task_2(station_data_graph, vertices):
 
     full_run_time_end = time.time()
     print('Total time taken: ' + str(round(full_run_time_end - full_run_time_start, 3)) + 's')
+
+    # Insert top row and generate CSV
+    output.insert(0, top_column)
+    write_to_csv(output, 'all_outputs_stops')
+
+def get_graph_task_3(station_data_graph, vertices):
+    top_column = ['STARTS ->']
+    output = []
+    for station_outer in vertices: # Use station_outer as start
+        # next_column is a count of all inbetween stations for all other stations
+        next_column = [station_outer]
+        start_time = time.time()
+        for station_inner in vertices: # Use station_inner as dest
+            route, station_count = task_3.task_3_algorithm(station_data_graph, vertices, station_outer, station_inner)
+
+            # Remove count for start and end stations - we only want the inbetween
+            next_column.append(station_count - 2)
+
+        # Add columns to build CSV
+        top_column.append(station_outer)
+        output.append(next_column)
+
+        end_time = time.time()
+        print('Processing done for: ' + station_outer + ' - ' + station_inner + ' | ' + str(len(next_column)) + ' data points | time taken: ' + str(round(end_time - start_time, 3)) + 's')
 
     # Insert top row and generate CSV
     output.insert(0, top_column)

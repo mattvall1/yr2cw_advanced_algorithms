@@ -32,6 +32,9 @@ def task_3_algorithm(graph, vertices, start, dest):
                 if bellman_output['pi'] == 'None':
                     all_stations_added = True
 
+    # Reverse the route to display correctly
+    route.reverse()
+
     return route, station_count
 
 

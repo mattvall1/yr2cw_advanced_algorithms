@@ -36,6 +36,9 @@ def task_1_algorithm(graph, vertices, start, dest):
                 if dijkstra_output['pi'] == 'None':
                     all_stations_added = True
 
+    # Reverse the route to display correctly
+    route.reverse()
+
     return route, d_dest_station
 
 

@@ -29,6 +29,10 @@ def task_4_process(graph, vertices, start, dest):
     original_route, original_time = task_1_algorithm(graph, vertices, start, dest)
     new_route, new_time = task_1_algorithm(underground_graph_mst, vertices, start, dest)
 
+    # Reverse the routes to display correctly
+    original_route.reverse()
+    new_route.reverse()
+
     return original_route, original_time, new_route, new_time, removed_edges_names
 
 
