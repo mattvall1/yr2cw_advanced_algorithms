@@ -37,11 +37,21 @@ def task_4_process(graph, vertices, start, dest):
 
 
 def run_task_4():
-    # Get data
-    underground_graph, underground_vertices, start_station, dest_station = utils.return_data()
+    # While loop to make sure user inputs valid stations
+    stations_together = False
+    while not stations_together:
+        # Get data
+        underground_graph, underground_vertices, start_station, dest_station = utils.return_data()
 
-    # Run the process
-    original_route, original_time, new_route, new_time, removed_edges_names = task_4_process(underground_graph, underground_vertices, start_station, dest_station)
+        # Run the process
+        original_route, original_time, new_route, new_time, removed_edges_names = task_4_process(underground_graph, underground_vertices, start_station, dest_station)
+
+        # Check the stations are together - if not, we ask the user to re-enter inputs
+        if len(original_route) > 2:
+            print('The stations you entered are not adjacent. Try again.')
+            stations_together = False
+        else:
+            stations_together = True
 
     # If the journey takes more than triple the time it originally took, this is infeasible
     if (original_time * 3) < new_time:
