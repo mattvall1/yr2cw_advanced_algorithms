@@ -12,7 +12,7 @@ import task_3
 
 def write_to_csv(data, filename='testing_data'):
     # Routine to output any data into CSVs
-    with open("testing/csv_output/"+filename+".csv", "w") as file_to_write:
+    with open("csv_output/"+filename+".csv", "w") as file_to_write:
         # Create writer to write row
         writer = csv.writer(file_to_write)
         # Write each row of data to the CSV file
@@ -139,9 +139,13 @@ if __name__ == "__main__":
     while i < 500:
         random_weight = random.randint(1, 5)
         alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-        random_letter_u = alphabet[random.randint(0, 25)]
-        random_letter_v = alphabet[random.randint(0, 25)]
-        random_edges.append([random_letter_u, random_letter_v, random_weight])
+        random_letter_u = alphabet[random.randint(0, 25)].upper()
+        random_letter_v = alphabet[random.randint(0, 25)].upper()
+        while random_letter_u == random_letter_v:
+            random_letter_u = alphabet[random.randint(0, 25)]
+            random_letter_v = alphabet[random.randint(0, 25)]
+
+        random_edges.append(['NA', random_letter_u, random_letter_v, random_weight])
         i += 1
 
     write_to_csv(random_edges, 'random_data')
