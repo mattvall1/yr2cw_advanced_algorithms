@@ -4,6 +4,7 @@
     Date: 26/10/23
 """
 import csv
+import random
 import time
 from clrs_library_slim import dijkstra
 import task_3
@@ -130,4 +131,19 @@ def get_edge_csv_task_4(underground_graph_mst, underground_graph_mst_edges, vert
     # Produce two files and compile manually so we can import these to run other algorithms
     write_to_csv(vertices_to_csv, 'vertices')
     write_to_csv(edges_with_weights_names, 'task_4_edges')
+
+if __name__ == "__main__":
+    # Generate some random data for testing algorithms
+    random_edges = []
+    i = 0
+    while i < 500:
+        random_weight = random.randint(1, 5)
+        alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+        random_letter_u = alphabet[random.randint(0, 25)]
+        random_letter_v = alphabet[random.randint(0, 25)]
+        random_edges.append([random_letter_u, random_letter_v, random_weight])
+        i += 1
+
+    write_to_csv(random_edges, 'random_data')
+
 
