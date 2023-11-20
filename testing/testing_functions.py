@@ -111,3 +111,23 @@ def get_graph_task_3(station_data_graph, vertices):
     # Insert top row and generate CSV
     output.insert(0, top_column)
     write_to_csv(output, 'all_outputs_stops')
+
+def get_edge_csv_task_4(underground_graph_mst, underground_graph_mst_edges, vertices):
+    # Get list of weighted edges
+    edges_with_weights = []
+    for mst_edge in underground_graph_mst_edges:
+        edge_string = str(underground_graph_mst.find_edge(mst_edge[0], mst_edge[1]))
+        edges_with_weights.append([mst_edge[0], int(edge_string.split(' ')[0]), int(edge_string.split('(')[1].rstrip(')'))])
+
+    edges_with_weights_names = []
+    for edge in edges_with_weights:
+        edges_with_weights_names.append(['NO LINE', vertices[edge[0]], vertices[edge[1]], edge[2]])
+
+    vertices_to_csv = []
+    for vert in vertices:
+        vertices_to_csv.append(['NO LINE', vert])
+
+    # Produce two files and compile manually so we can import these to run other algorithms
+    write_to_csv(vertices_to_csv, 'vertices')
+    write_to_csv(edges_with_weights_names, 'task_4_edges')
+
