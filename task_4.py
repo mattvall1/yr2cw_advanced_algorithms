@@ -54,7 +54,7 @@ def run_task_4(get_timings = False):
 
         if get_timings:
             end_time = time.time()
-            print('Timing: ' + str(round((end_time - start_time), 3)) + 's')
+            print('Timing: ' + str(round((end_time - start_time), 10)) + 's')
 
         # Check the stations are together - if not, we ask the user to re-enter inputs
         if len(original_route) > 2:

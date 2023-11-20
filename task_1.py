@@ -56,7 +56,7 @@ def run_task_1(get_timings = False):
 
     if get_timings:
         end_time = time.time()
-        print('Timing: ' + str(round((end_time - start_time), 3)) + 's')
+        print('Timing: ' + str(round((end_time - start_time), 10)) + 's')
 
     # Display routing
     print('The shortest route for the given stations is: ' + ' -> '.join(route))
