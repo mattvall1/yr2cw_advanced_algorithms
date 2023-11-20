@@ -31,6 +31,7 @@ def create_underground_graph(vertices, edges):
 # Get data from CSV and format into appropriate data structure - using above functions
 def get_data():
     # Open and read CSV file
+    # with open('data/random_data.csv', 'r') as file: # Random data cosisting of edges made of the alphabet
     # with open('data/small_data.csv', 'r') as file: # Uncomment for testing on one line - Bakerloo
     # with open('data/medium_data.csv', 'r') as file: # Uncomment for testing on two lines - Bakerloo + Central
     # with open('data/large_data.csv', 'r') as file: # Uncomment for testing on three lines - Bakerloo + Central + Circle
