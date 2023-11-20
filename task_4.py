@@ -3,6 +3,8 @@
     Purpose: Task 4
     Date: 14/11/23
 """
+import time
+
 from clrs_library_slim.adjacency_list_graph import AdjacencyListGraph
 from clrs_library_slim import mst
 from task_1 import task_1_algorithm
@@ -36,15 +38,23 @@ def task_4_process(graph, vertices, start, dest):
     return original_route, original_time, new_route, new_time, removed_edges_names
 
 
-def run_task_4():
+def run_task_4(get_timings = False):
     # While loop to make sure user inputs valid stations
     stations_together = False
     while not stations_together:
         # Get data
         underground_graph, underground_vertices, start_station, dest_station = utils.return_data()
 
+        # If we want the efficiency, we time the algorithm
+        if get_timings:
+            start_time = time.time()
+
         # Run the process
         original_route, original_time, new_route, new_time, removed_edges_names = task_4_process(underground_graph, underground_vertices, start_station, dest_station)
+
+        if get_timings:
+            end_time = time.time()
+            print('Timing: ' + str(round((end_time - start_time), 3)) + 's')
 
         # Check the stations are together - if not, we ask the user to re-enter inputs
         if len(original_route) > 2:

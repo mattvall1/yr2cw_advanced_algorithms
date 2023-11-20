@@ -3,6 +3,7 @@
     Purpose: Task 3 - Revised task_2 but with the Bellman Ford Algorithm
     Date: 23/10/23
 """
+import time
 
 from clrs_library_slim.bellman_ford import bellman_ford
 import utils
@@ -38,12 +39,20 @@ def task_3_algorithm(graph, vertices, start, dest):
     return route, station_count
 
 
-def run_task_3():
+def run_task_3(get_timings = False):
     # Get data
     underground_graph, underground_vertices, start_station, dest_station = utils.return_data()
 
+    # If we want the efficiency, we time the algorithm
+    if get_timings:
+        start_time = time.time()
+
     # Run the algorithm
     route, station_count = task_3_algorithm(underground_graph, underground_vertices, start_station, dest_station)
+
+    if get_timings:
+        end_time = time.time()
+        print('Timing: ' + str(round((end_time - start_time), 3)) + 's')
 
     # Display routing
     print('The shortest route for the given stations is: ' + ' -> '.join(route))

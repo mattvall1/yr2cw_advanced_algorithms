@@ -3,6 +3,7 @@
     Purpose: Task 1 of the coursework. This returns the time it takes to get between two user-inputted stations and the route they would need to take.
     Date: 20/10/23
 """
+import time
 
 from clrs_library_slim.dijkstra import dijkstra
 import utils
@@ -42,12 +43,20 @@ def task_1_algorithm(graph, vertices, start, dest):
     return route, d_dest_station
 
 
-def run_task_1():
+def run_task_1(get_timings = False):
     # Get data
     underground_graph, underground_vertices, start_station, dest_station = utils.return_data()
 
+    # If we want the efficiency, we time the algorithm
+    if get_timings:
+        start_time = time.time()
+
     # Run the algorithm
     route, dest_time = task_1_algorithm(underground_graph, underground_vertices, start_station, dest_station)
+
+    if get_timings:
+        end_time = time.time()
+        print('Timing: ' + str(round((end_time - start_time), 3)) + 's')
 
     # Display routing
     print('The shortest route for the given stations is: ' + ' -> '.join(route))
