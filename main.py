@@ -16,7 +16,7 @@ while program_running:
           '1. Task 1 - This returns the time it takes to get between two user-inputted stations and the route they would need to take.\n'
           '2. Task 2 - This returns the number of stops between two user-inputted stations and the route they would need to take.\n'
           '3. Task 3 - Revised task_2 using the Bellman Ford Algorithm\n'
-          '4. Task 4 - \n'
+          '4. Task 4 - Check feasibility of closing connections between two stations\n'
           '5. Exit program')
     # Make sure user selects a valid option, if not, user to reenter until valid option is selected
     option_selected = False
