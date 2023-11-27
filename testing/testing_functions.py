@@ -1,5 +1,5 @@
 """
-    Author: Matthew Vallance 001225832
+    Author: Matthew Vallance 001225832, Deanna White 001208356, Varnika Mogali 001279858, Kayleigh Harmsworth 001218868, Deeya Patel 001230057
     Purpose: Simple script to put data into a CSV for comparison externally
     Date: 26/10/23
 """

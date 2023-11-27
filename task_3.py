@@ -1,5 +1,5 @@
 """
-    Author: Matthew Vallance 001225832
+    Author: Matthew Vallance 001225832, Deanna White 001208356, Varnika Mogali 001279858, Kayleigh Harmsworth 001218868, Deeya Patel 001230057
     Purpose: Task 3 - Revised task_2 but with the Bellman Ford Algorithm
     Date: 23/10/23
 """
