@@ -14,5 +14,6 @@
 - Create a prototype software to guide the government in shutting down tube lines while ensuring travel between any two stations remains viable.
 - Analyze the effects of the shutdown on journey times in terms of minutes and the count of intermediary stations.
 ### Notes
-- This coursework received a 86% grade, the highest grade
+- This coursework received an 86% grade, the highest grade
+- This coursework was a group project comprised of 5 members
 - The task_documents folder contains the specifications, submission, and feedback files for this coursework
